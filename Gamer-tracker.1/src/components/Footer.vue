@@ -38,6 +38,7 @@
   @media (max-width: 500px) {
         .footer_text{
             text-align: center;
+            color: #fff;
     }
     .footer_links{
     margin-right: 0rem;
