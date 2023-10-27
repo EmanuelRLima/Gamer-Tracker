@@ -23,6 +23,7 @@
                     por:</span>
                 <select class="text-center" id="sortOrder" v-model="selectedSortOption"
                     style="border-radius: 8px; background: #0B1641; border: rgb(11, 22, 65); height: 50px; color: #fff;">
+                    <option value="">% de desconto</option>
                     <option value="desc">Maior Desconto</option>
                     <option value="asc">Menor Desconto</option>
                     <option value="title">Título</option>
@@ -88,7 +89,7 @@ export default {
                 { id: 12, title: "Game 12", thumb: "x" },
             ],
             searchText: "",
-            selectedSortOption: 'desc',
+            selectedSortOption: '',
         };
     },
     computed: {

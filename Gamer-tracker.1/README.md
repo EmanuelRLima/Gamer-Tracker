@@ -1,29 +1,34 @@
-# Gamer-tracker.1
+# Gamer-Tracker
+Desenvolvimento utilizando Vue.js
 
-This template should help get you started developing with Vue 3 in Vite.
+# Passo a passo para iniciar o projeto:
 
-## Recommended IDE Setup
+1) Inicie com um npm install;
+2) npm run serve;
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+# Explicando um pouco do que foi feito:
 
-## Customize configuration
+Em sua maior parte para poucar tempo e ajudar até mesmo em otimização e um código mais limpo foi utilizado o bootstrap.
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+Acredito que a principio o filtro de busca e ofertas é o principal a ser visto, os dois funcionam muito bem.
 
-## Project Setup
+O projeto não possui redirecionamento, porém o arquivo de routes esta criado.
 
-```sh
-npm install
-```
+Não foi necessário utilização de VUEX ou PINIA, porém para possíveis implementações de features listadas abaixo, seria importante implementar.
 
-### Compile and Hot-Reload for Development
+# Possiveis features:
 
-```sh
-npm run dev
-```
+Botão de detalhes exibir modal com informações sobre aquele produto, tal como: Tipo de jogo, multiplataforma, cooperativo online, avaliações.
 
-### Compile and Minify for Production
+Botão de favoritar games, mesmo sem a inteção de comprar.
 
-```sh
-npm run build
-```
+Filtro por avaliação do game.
+
+Redirecionamento para a página do jogo ou compra pelo próprio site.
+
+# Problema encontrados:
+
+A API não possui mais jogos para implemtação do botão "Carregar mais", porém caso contrario, uma paginação poderia ser aplicada.
+
+Imagens de baixa qualidade.
+
