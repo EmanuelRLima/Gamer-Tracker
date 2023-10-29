@@ -54,6 +54,7 @@
             style="width: 380px;height: 50px; background: #0B1641;border-radius: 8px;">Voltar
         </button>
     </router-link>
-</div></template>
+</div>
+</template>
   
 <style></style>
