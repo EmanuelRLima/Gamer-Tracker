@@ -6,7 +6,7 @@ Desenvolvimento utilizando Vue.js
 1) Inicie com um npm install;
 2) npm run serve;
 
-# VERSÃO 2 (29/10/2023)
+# DIA 29/10/2023
 # Explicando um pouco do que foi feito:
 
 + Adicionada funcionalidades ao projeto.
@@ -26,7 +26,7 @@ Desenvolvimento utilizando Vue.js
 
 + Adicionado array de erros em filtro e gets.
 
-# VERSÃO 1 (27/10/2023 - 28/10/2023)
+# DIA 27/10/2023
 # Explicando um pouco do que foi feito:
 
 + Em sua maior parte para poucar tempo e ajudar até mesmo em otimização e um código mais limpo foi utilizado o bootstrap.
