@@ -1,4 +1,5 @@
 <template>
+    <Detail ref="Detail" />
     <div class="container">
         <div class="d-flex justify-content-between">
             <div class="mt-3 mb-4">
@@ -14,8 +15,7 @@
                             </svg>
                         </span>
                     </div>
-                    <input type="title" v-model="searchText" placeholder="Pesquisar" class="search-input"
-                        style="border-radius: 0px 8px 8px 0px; background: #0B1641; border: rgb(11, 22, 65); width: 230px; height: 50px; color: #fff;" />
+                    <input type="title" v-model="searchText" placeholder="Pesquisar" class="search-input Filter_search" />
                 </div>
             </div>
             <div class="Filter_percet">
@@ -43,7 +43,7 @@
                         <div class="d-flex justify-content-between">
                             <div class="mt-1">
                                 <button type="button" class="btn"
-                                    style="color: #fff ;background: #C70160;">DETALHES</button>
+                                    style="color: #fff ;background: #C70160;" @click="Detail_open(game)">DETALHES</button>
                             </div>
 
                             <div class="d-flex">
@@ -64,14 +64,18 @@
         </div>
         <div class="d-flex justify-content-center mt-5 mb-5">
             <button type="button" class="btn text-white"
-                style="width: 380px;height: 50px; background: #0B1641;border-radius: 8px;">Carregar mais</button>
+                style="width: 380px;height: 50px; background: #0B1641;border-radius: 8px;" @click="More_games()">Carregar mais</button>
         </div>
     </div>
 </template>
   
 <script>
+import Detail from "./Modals/Details_Modal.vue"
 import { AxiosAPI } from "@/axios"
 export default {
+    components:{
+        Detail
+    },
     data() {
         return {
             items: [
@@ -141,6 +145,19 @@ export default {
             return discount.toFixed(0);
         },
 
+        Detail_open(event){
+            this.$refs.Detail.openModal(event);
+        },
+
+        More_games(){
+            AxiosAPI.get("/1.0/deals?pageNumber=0&pageSize=12&storeID=1&onSale=1&AAA=1")
+                .then((resp) => {
+                    let More_games = []
+                    More_games = resp.data
+                    this.items.push(...More_games)
+                })
+        }
+
     }
 }
 
@@ -148,15 +165,14 @@ export default {
 </script>
   
 <style scoped>
-.input_resp {
-    border-radius: 8px;
+.Filter_search{
+    border-radius: 0px 8px 8px 0px; 
     background: #0B1641;
-    border: rgb(11, 22, 65);
-    width: 250px;
-    height: 50px;
+    border: rgb(11, 22, 65); 
+    width: 230px; 
+    height: 50px; 
     color: #fff;
 }
-
 .Filter_percet {
     margin-top: 3rem;
     margin-bottom: 3rem;
@@ -165,10 +181,6 @@ export default {
 
 
 @media (max-width: 500px) {
-    .input_resp {
-        width: 150px;
-    }
-
     .Filter_percet {
         font-size: 15px;
         margin-top: 1.3rem;
@@ -178,5 +190,14 @@ export default {
         align-items: center;
         text-align: center;
     }
+}
+
+@media (max-width: 435px) {
+
+    .Filter_search{
+        width: 150px; 
+        height: 50px; 
+    }
+
 }
 </style>
