@@ -34,10 +34,14 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-4 col-md-6 col-sm-6 col-12" v-for="game in filteredAndSortedGames" :key="game.id">
+            <div class="col-lg-4 col-md-6 col-sm-6 col-12" v-for="game in filteredAndSortedGames.slice(0, itemsToShow)" :key="game.id">
                 <div class="card mb-3"
                     style="border-radius: 8px;background: #0B1641;box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);">
-                    <img :src="'https://cdn.akamai.steamstatic.com/steam/apps/'+game.steamAppID+'/header.jpg'" class="card-img-top" alt="Card Image" />
+                    <img
+                        :src="game.card_url"
+                        class="card-img-top"
+                        alt="Card Image"
+                    />
                     <div class="card-body">
                         <div>
                             <span class="card-title text-white" style="font-size: 20px; font-family: roboto;">{{ game.title
@@ -67,7 +71,7 @@
         </div>
         <div class="d-flex justify-content-center mt-5 mb-5">
             <button type="button" class="btn text-white"
-                style="width: 380px;height: 50px; background: #0B1641;border-radius: 8px;" @click="More_games()">Carregar mais</button>
+                style="width: 380px;height: 50px; background: #0B1641;border-radius: 8px;" @click="More_games">Carregar mais</button>
         </div>
     </div>
 </template>
@@ -87,11 +91,13 @@ export default {
             items: [],
             searchText: "",
             selectedSortOption: '',
-            erro: [{
+            itemsToShow: 12, 
+            itemsToLoad: 12,
+            erro:{
                 error_api: '',
                 error_axios: '',
                 error_filter: '',
-            }]
+            }
         };
     },
     computed: {
@@ -128,21 +134,52 @@ export default {
         this.Games();
     },
     methods: {
-        Games() {
-            AxiosAPI.get("/1.0/deals?pageNumber=0&pageSize=12&storeID=1&onSale=1&AAA=1")
+        async Games() {
+           await AxiosAPI.get("/1.0/deals?pageNumber=0&storeID=1&onSale=1&AAA=1")
             .then((resp) => {
-            if (resp && resp.data) {
+                if (resp && resp.data) {
                     this.items = resp.data;
-                    this.loading = false
-            } else {
-                this.erro.error_api = "Erro na resposta da API"
-                }
-            })
-            .catch((error) => {
-                this.erro.error_axios = "Erro na solicitação Axios:", error
-            });
-
+                    this.ImgLoad()
+                    /* Ao fim da execução chamo a função para verificar se as imagens existem */
+                }else {
+                    this.erro.error_api = "Erro na resposta da API"
+                    }
+                })
+                .catch((error) => {
+                    this.erro.error_axios = "Erro na solicitação Axios:"+ error
+                });
         },
+
+       async ImgLoad(){
+        /* Uma nova função é criada para tratar separadamente e não gerar um lixo visual */
+            let itemsWithCardURL = []
+
+            for (const item of this.items) {
+            const url = `https://cdn.akamai.steamstatic.com/steam/apps/${item.steamAppID}/header.jpg`;
+            const wrong_card = { card_img: `https://cdn.akamai.steamstatic.com/steam/apps/1059900/header.jpg` };
+            /* Aqui eu utilizo o  'wrong_card' para preencher a lacuna de uma imagens que não existe se houver.
+               Nesse projeto o card "Mortal Kombat 11 Ultimate" não está sendo retornado, nesse caso substituo
+               a imagen por outra qualquer, poderiamos por exemplo informa um src de erros. */
+                 try {
+                    const response = await this.imageExists(url);
+                        if (response.status === 200) {
+                            item.card_url = url;
+                        } else {
+                            item.card_url = wrong_card.card_img;
+                        }
+                        } catch (error) {
+                            item.card_url = wrong_card.card_img;
+                        }
+
+                        itemsWithCardURL.push(item);
+                    }
+                    this.loading = false
+        },
+
+            imageExists(url) {
+                const value = AxiosAPI.get(url)                
+                return value
+            },
 
         calculateDiscountPercentage(game) {
             if (game && game.normalPrice && game.salePrice) {
@@ -160,19 +197,8 @@ export default {
         },
 
         More_games(){
-            AxiosAPI.get("/1.0/deals?pageNumber=0&pageSize=12&storeID=1&onSale=1&AAA=1")
-            .then((resp) => {
-            if (resp && resp.data) {
-                    let More_games = resp.data;
-                    this.items.push(...More_games);
-            } else {
-                this.erro.error_api = "Erro na resposta da API"
-                }
-            })
-            .catch((error) => {
-                this.erro.error_axios = "Erro na solicitação Axios:", error
-            });
-            }
+            this.itemsToShow += this.itemsToLoad;
+        }
 
     }
 }

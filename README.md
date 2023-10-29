@@ -9,22 +9,26 @@ Desenvolvimento utilizando Vue.js
 # DIA 29/10/2023
 # Explicando um pouco do que foi feito:
 
-+ Adicionada funcionalidades ao projeto.
++ Adicionada funcionalidades ao projeto e melhorias.
 
 # Features adicionadas
-+ Botão de "Carregar mais", adiciona os mesmos jogos a lista, se acaso houve-se outros games nessa lista poderiamos criar uma paginação.
-
 + Botão de detalhes agora mostra informações sobre o rating dele no metracritc's e steam, unicas informações retornadas na API.
 
 + Dentro de detalhes o usuário pode ser direcionado ao site do metacritic.
+
++ Adicionado Loading para carregamento de página, em internets não muito boas o não carregamento rápido das informações podem causar problemas.
+
++ Soft paginação, carregamos os dados porém so exibimos de 12 em 12 ao clicar em "Carregar mais".
+
++ Adicionado array de erros em filtro e gets.
+
++ Imagens agora possuem validação.
 
 # Melhorias 
 
 + Imagens dos cards com melhor qualidade, verifiquei que usando o steamAppId e o link: 'https://cdn.akamai.steamstatic.com/steam/apps/'+game.steamAppID+'/header.jpg' retornava a img certa.
 
-+ Adicionado Loading para carregamento de página, em internets não muito boas o não carregamento rápido das informações podem causar problemas.
-
-+ Adicionado array de erros em filtro e gets.
++ Url de get alterada de "https://www.cheapshark.com/api/1.0/deals?pageNumber=0&pageSize=12&storeID=1&onSale=1&AAA=1" para "https://www.cheapshark.com/api/1.0/deals?pageNumber=0&storeID=1&onSale=1&AAA=1", assim conseguimos mais items para uma paginação.
 
 # DIA 27/10/2023
 # Explicando um pouco do que foi feito:
