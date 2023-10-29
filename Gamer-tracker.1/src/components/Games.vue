@@ -34,7 +34,7 @@
             <div class="col-lg-4 col-md-6 col-sm-6 col-12" v-for="game in filteredAndSortedGames" :key="game.id">
                 <div class="card mb-3"
                     style="border-radius: 8px;background: #0B1641;box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);">
-                    <img :src="game.thumb" class="card-img-top" alt="Card Image" />
+                    <img :src="'https://cdn.akamai.steamstatic.com/steam/apps/'+game.steamAppID+'/header.jpg'" class="card-img-top" alt="Card Image" />
                     <div class="card-body">
                         <div>
                             <span class="card-title text-white" style="font-size: 20px; font-family: roboto;">{{ game.title

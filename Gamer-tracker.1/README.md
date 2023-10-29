@@ -7,7 +7,6 @@ Desenvolvimento utilizando Vue.js
 2) npm run serve;
 
 # VERSÃO 2 (29/10/2023)
-
 # Explicando um pouco do que foi feito:
 
 + Adicionada funcionalidades ao projeto.
@@ -19,8 +18,11 @@ Desenvolvimento utilizando Vue.js
 
 + Dentro de detalhes o usuário pode ser direcionado ao site do metacritic.
 
-# VERSÃO 1 (27/10/2023 - 28/10/2023)
+# Melhorias 
 
++ Imagens dos cards com melhor qualidade, verifiquei que usando o steamAppId e o link: 'https://cdn.akamai.steamstatic.com/steam/apps/'+game.steamAppID+'/header.jpg' retornava a img certa.
+
+# VERSÃO 1 (27/10/2023 - 28/10/2023)
 # Explicando um pouco do que foi feito:
 
 + Em sua maior parte para poucar tempo e ajudar até mesmo em otimização e um código mais limpo foi utilizado o bootstrap.

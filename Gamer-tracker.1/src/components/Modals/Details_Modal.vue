@@ -16,7 +16,7 @@
 
                 <div class="d-flex justify-content-center text-white">
                     <div>
-                        <div><img style="width: 100%;object-fit: contain;" :src="game.thumb"></div>
+                        <div><img style="width: 100%;object-fit: contain;" :src="'https://cdn.akamai.steamstatic.com/steam/apps/'+game.steamAppID+'/header.jpg'"></div>
                         <div class="text-center font-size-notrap"><span class="text-uppercase font-weight-bold">
                             Avaliação na steam: {{
                                     game.steamRatingText }}</span></div>
