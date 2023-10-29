@@ -69,7 +69,7 @@
                 </div>
             </div>
         </div>
-        <div class="d-flex justify-content-center mt-5 mb-5">
+        <div v-if="showbutton" class="d-flex justify-content-center mt-5 mb-5">
             <button type="button" class="btn text-white"
                 style="width: 380px;height: 50px; background: #0B1641;border-radius: 8px;" @click="More_games">Carregar mais</button>
         </div>
@@ -94,6 +94,7 @@ export default {
             selectedSortOption: '',
             itemsToShow: 12, 
             itemsToLoad: 12,
+            showbutton: true,
             erro:{
                 error_api: '',
                 error_axios: '',
@@ -193,6 +194,9 @@ export default {
 
         More_games(){
             this.itemsToShow += this.itemsToLoad;
+            if (this.itemsToShow >= this.items.length) {
+                this.showbutton = false;
+            }
         }
 
     }
