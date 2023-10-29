@@ -1,6 +1,9 @@
 <template>
     <Detail ref="Detail" />
-    <div class="container">
+    <div v-if="loading">
+    <Loading />
+    </div>
+    <div v-else class="container">
         <div class="d-flex justify-content-between">
             <div class="mt-3 mb-4">
                 <h4 style="color: #FFF; font-family: Roboto;">Ofertas</h4>
@@ -70,30 +73,25 @@
 </template>
   
 <script>
-import Detail from "./Modals/Details_Modal.vue"
+import Detail from "./Modals/Details_Modal.vue";
+import Loading from "./Modals/Loading.vue"
 import { AxiosAPI } from "@/axios"
 export default {
     components:{
-        Detail
+        Detail,
+        Loading
     },
     data() {
         return {
-            items: [
-                { id: 1, title: "Game 1", thumb: "x" },
-                { id: 2, title: "Game 2", thumb: "x" },
-                { id: 3, title: "Game 3", thumb: "x" },
-                { id: 4, title: "Game 4", thumb: "x" },
-                { id: 5, title: "Game 5", thumb: "x" },
-                { id: 6, title: "Game 6", thumb: "x" },
-                { id: 7, title: "Game 7", thumb: "x" },
-                { id: 8, title: "Game 8", thumb: "x" },
-                { id: 9, title: "Game 9", thumb: "x" },
-                { id: 10, title: "Game 10", thumb: "x" },
-                { id: 11, title: "Game 11", thumb: "x" },
-                { id: 12, title: "Game 12", thumb: "x" },
-            ],
+            loading: true,
+            items: [],
             searchText: "",
             selectedSortOption: '',
+            erro: [{
+                error_api: '',
+                error_axios: '',
+                error_filter: '',
+            }]
         };
     },
     computed: {
@@ -132,17 +130,29 @@ export default {
     methods: {
         Games() {
             AxiosAPI.get("/1.0/deals?pageNumber=0&pageSize=12&storeID=1&onSale=1&AAA=1")
-                .then((resp) => {
-                    this.items = resp.data
-                })
+            .then((resp) => {
+            if (resp && resp.data) {
+                    this.items = resp.data;
+                    this.loading = false
+            } else {
+                this.erro.error_api = "Erro na resposta da API"
+                }
+            })
+            .catch((error) => {
+                this.erro.error_axios = "Erro na solicitação Axios:", error
+            });
 
         },
 
         calculateDiscountPercentage(game) {
-            const normalPrice = parseFloat(game.normalPrice);
-            const salePrice = parseFloat(game.salePrice);
-            const discount = (normalPrice - salePrice) / normalPrice * 100;
+            if (game && game.normalPrice && game.salePrice) {
+                const normalPrice = parseFloat(game.normalPrice);
+                const salePrice = parseFloat(game.salePrice);
+                const discount = (normalPrice - salePrice) / normalPrice * 100;
             return discount.toFixed(0);
+            } else {
+                this.erro.error_filter = "Dados inválidos"
+            }
         },
 
         Detail_open(event){
@@ -151,12 +161,18 @@ export default {
 
         More_games(){
             AxiosAPI.get("/1.0/deals?pageNumber=0&pageSize=12&storeID=1&onSale=1&AAA=1")
-                .then((resp) => {
-                    let More_games = []
-                    More_games = resp.data
-                    this.items.push(...More_games)
-                })
-        }
+            .then((resp) => {
+            if (resp && resp.data) {
+                    let More_games = resp.data;
+                    this.items.push(...More_games);
+            } else {
+                this.erro.error_api = "Erro na resposta da API"
+                }
+            })
+            .catch((error) => {
+                this.erro.error_axios = "Erro na solicitação Axios:", error
+            });
+            }
 
     }
 }

@@ -22,6 +22,10 @@ Desenvolvimento utilizando Vue.js
 
 + Imagens dos cards com melhor qualidade, verifiquei que usando o steamAppId e o link: 'https://cdn.akamai.steamstatic.com/steam/apps/'+game.steamAppID+'/header.jpg' retornava a img certa.
 
++ Adicionado Loading para carregamento de página, em internets não muito boas o não carregamento rápido das informações podem causar problemas.
+
++ Adicionado array de erros em filtro e gets.
+
 # VERSÃO 1 (27/10/2023 - 28/10/2023)
 # Explicando um pouco do que foi feito:
 
