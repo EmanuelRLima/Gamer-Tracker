@@ -1,5 +1,5 @@
 # Gamer-Tracker
-Desenvolvimento de projeto para avaliação.
+Desenvolvimento de site com ofertas.
 
 # Tecnologias
 
@@ -35,9 +35,10 @@ Desenvolvimento de projeto para avaliação.
 + Não foi necessário utilização de VUEX ou PINIA, porém para possíveis implementações de features listadas abaixo, seria importante implementar.
 
 
-# Possiveis features:
+# Features necessárias:
 
 + Botão de favoritar games, mesmo sem a inteção de comprar.
++ Remoção de style line e criação de variaveis css.
 
 + Filtro por avaliação do game.
 
